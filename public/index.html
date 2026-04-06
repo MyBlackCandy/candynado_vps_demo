@@ -1,79 +1,226 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="th">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>VPS Fetch/Write Demo</title>
-  <style>
-    body{font-family:system-ui,Arial;padding:2rem;max-width:760px;margin:auto;line-height:1.5}
-    .card{padding:1rem;border:1px solid #ddd;border-radius:12px;margin:1rem 0}
-    .row{margin:.75rem 0}
-    button{padding:.6rem 1rem;cursor:pointer}
-    .ok{color:green}.err{color:#b00020}
-    pre{background:#fafafa;border:1px solid #eee;padding:1rem;border-radius:8px;overflow:auto}
-  </style>
-<script defer src="https://analytic.candynado.cloud/script.js" data-website-id="bfde69e6-6efa-4128-81ed-37f8e3ef6032"></script></head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เลโอลีโอซัดกราฟ | Trader Story</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --primary-blue: #0056b3;
+            --accent-gold: #b8860b;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        /* ปรับสีสำหรับ Dark Mode สบายตา */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #1a1a1a;
+                --text-color: #e0e0e0;
+                --card-bg: #2d2d2d;
+                --primary-blue: #4da3ff;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            padding-bottom: 50px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        /* Story Content */
+        .content-card {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary-blue);
+            padding-left: 15px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .highlight {
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+
+        /* Timeline Style */
+        .timeline-box {
+            border-left: 2px solid var(--primary-blue);
+            padding-left: 25px;
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 10px;
+            width: 14px;
+            height: 14px;
+            background-color: var(--primary-blue);
+            border-radius: 50%;
+        }
+
+        .timeline-date {
+            font-weight: 600;
+            color: var(--accent-gold);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Quote Section */
+        .quote {
+            font-style: italic;
+            background: rgba(0, 86, 179, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(0, 86, 179, 0.1);
+            border-bottom: 1px solid rgba(0, 86, 179, 0.1);
+        }
+
+        /* Broker Link */
+        .broker-section {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #0056b3, #003d80);
+            color: white;
+            border-radius: 20px;
+            margin-top: 50px;
+        }
+
+        .btn-link {
+            display: inline-block;
+            background-color: #fff;
+            color: #0056b3;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+
+        .btn-link:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2rem; }
+            .content-card { padding: 25px; }
+        }
+    </style>
+</head>
 <body>
-  <h1>VPS Fetch/Write Demo</h1>
-  <p>This page is served by Node.js on your VPS. Use the buttons to call real API routes.</p>
-  <div class="card">
-    <h3>Read: Fetch Data (GET)</h3>
-    <div class="row">
-      <button id="getBtn">Fetch Data</button>
-      <span id="getMsg"></span>
+
+    <div class="container">
+        <section class="hero">
+            <h1>เลโอลีโอซัดกราฟ</h1>
+            <p>เส้นทาง Trader จากติดลบสู่การปลดหนี้ครอบครัว</p>
+        </section>
+
+        <main class="content-card">
+            <h2>จุดเริ่มต้นและการเดินทาง</h2>
+            <p>สวัสดีครับผม <span class="highlight">เลโอลีโอซัดกราฟ</span> เกิดปี พ.ศ. 2548 [cite: 1] ย้อนไปตอนอายุ 12 ปี ผมเริ่มรู้จักคำว่า "เทรด" เพราะอยากเป็นนักธุรกิจที่ทำงานสบายๆ นั่งดูแค่กราฟ [cite: 2] แต่ชีวิตจริงไม่ได้ง่ายขนาดนั้น ผมต้องผ่านการพอร์ตแตกครั้งแล้วครั้งเล่า และต้องสู้กับความไม่เชื่อมั่นของคนรอบข้าง [cite: 4, 6]</p>
+
+            <div class="timeline-box">
+                <div class="timeline-item">
+                    <span class="timeline-date">วัยเด็ก - ป.6</span>
+                    <p>เริ่มต้นจากความสนใจกราฟหุ้น แต่มาพบกับโลกของ Binary Option ที่ต้องรอจนอายุ 18 ถึงจะสมัครได้ [cite: 2]</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">ช่วง ม.2 - ม.4</span>
+                    <p>พยายามหาเงินทุนจากการขายไอดีเกมออนไลน์เพื่อมาเทรด [cite: 6] จนตัดสินใจลาออกจากการเรียนเพื่อมาพิสูจน์ตัวเองในเส้นทางสายเทรดอย่างเต็มตัว แม้แม่จะมองว่ามันคือการพนันก็ตาม [cite: 6]</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">กุมภาพันธ์ 2566 (ก้าวเข้าสู่ Forex)</span>
+                    <p>รู้จัก Forex ครั้งแรก เริ่มต้นจากโบนัสเทรดฟรี $50 และเรียนรู้ด้วยตัวเองผ่าน YouTube ทั้งจากไทยและต่างประเทศ [cite: 6, 8]</p>
+                </div>
+            </div>
+
+            <h2>บทพิสูจน์และความสำเร็จ</h2>
+            <p>ผมผ่านช่วงเวลาที่ยากลำบาก ช่วงที่ครอบครัวเป็นหนี้กว่า 5 แสนบาท และคำพูดของคุณพ่อที่ทำให้ผมเสียใจที่สุดในวันนั้น [cite: 8] แต่ผมเลือกที่จะนำความเสียใจมาเป็นแรงผลักดันจนสามารถทำกำไรและ <span class="highlight">ปลดหนี้ทั้งหมดให้แม่ได้สำเร็จ</span> [cite: 9]</p>
+
+            <div class="quote">
+                "ผมเคยผ่านจุดที่ก๋วยเตี๋ยวถ้วยเดียวต้องกินกัน 3 คนกับตายาย... วันนี้ผมพิสูจน์ให้เห็นแล้วว่าไม่มีอะไรในโลกที่เป็นไปไม่ได้" [cite: 9]
+            </div>
+
+            <p>ปัจจุบันผมพัฒนาตัวเองอยู่เสมอ อยู่กับกราฟทุกวัน และใช้ชีวิตได้อย่างอิสระโดยไม่ต้องกังวลเรื่องราคาสิ่งของเหมือนเมื่อก่อนอีกต่อไป [cite: 9]</p>
+        </main>
+
+        <section class="broker-section">
+            <h3>โบรกเกอร์ที่ผมเลือกใช้</h3>
+            <p>ปัจจุบันผมใช้บริการของ <strong>IUX Market</strong> [cite: 10]</p>
+            <a href="ใส่ลิ้งค์โบรกเกอร์ของคุณที่นี่" class="btn-link" target="_blank">
+                <i class="fas fa-external-link-alt"></i> สมัครเทรดกับ IUX Market
+            </a>
+        </section>
+
+        <footer>
+            <p>&copy; 2024 เลโอลีโอซัดกราฟ | Trading Journey</p>
+        </footer>
     </div>
-  </div>
-  <div class="card">
-    <h3>Write: Save an Event (POST)</h3>
-    <div class="row">
-      <button id="writeBtn">Write Data</button>
-      <span id="writeMsg"></span>
-    </div>
-  </div>
-  <div class="card">
-    <h3>Metrics (Live)</h3>
-    <pre id="metricsBox">Loading…</pre>
-  </div>
-<script>
-const $ = (id)=>document.getElementById(id);
-async function getJSON(url, opts){ const r=await fetch(url,opts); if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }
-$('getBtn').onclick = async () => {
-  try {
-    const data = await getJSON('/api/time');
-    $('getMsg').textContent = 'Server time: ' + data.time;
-    $('getMsg').className = 'ok';
-    window.umami?.track('fetch_data');
-  } catch {
-    $('getMsg').textContent = 'Error';
-    $('getMsg').className = 'err';
-  }
-};
-$('writeBtn').onclick = async () => {
-  try {
-    const data = await getJSON('/api/demo-write', { method:'POST' });
-    $('writeMsg').textContent = 'Writes so far: ' + data.total;
-    $('writeMsg').className = 'ok';
-    window.umami?.track('write_data');
-    loadMetrics();
-  } catch {
-    $('writeMsg').textContent = 'Error';
-    $('writeMsg').className = 'err';
-  }
-};
-async function loadMetrics(){
-  try {
-    const m = await getJSON('/api/metrics');
-    $('metricsBox').textContent = JSON.stringify(m, null, 2);
-  } catch {
-    $('metricsBox').textContent = 'Error loading metrics';
-  }
-}
-loadMetrics();
-</script>
+
 </body>
 </html>
-
-
-
-
-
