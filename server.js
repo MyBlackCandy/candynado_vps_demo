@@ -1,14 +1,24 @@
 import express from 'express';
+import path from 'path'; // เพิ่มการนำเข้า path เพื่อจัดการตำแหน่งไฟล์
+import { fileURLToPath } from 'url';
 import pkg from 'pg';
+
 const { Pool } = pkg;
 const app = express();
+
+// จัดการเรื่อง __dirname สำหรับ ES Modules (เนื่องจากคุณใช้ import)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // --- Config ---
 const PORT = process.env.PORT || 3000;
-const DATABASE_URL = process.env.DATABASE_URL || ''; // empty = in-memory fallback
+const DATABASE_URL = process.env.DATABASE_URL || '';
+
 app.use(express.json());
-app.use(express.static('public'));
-// --- In-memory fallback (if no DB yet) ---
-let mem = { pageViews: 0, writes: 0 };
+
+// แก้ไขจุดนี้: ระบุตำแหน่งโฟลเดอร์ public ให้ชัดเจน
+app.use(express.static(path.join(__dirname, 'public')));
+
 // --- Optional Postgres pool ---
 let pool = null;
 if (DATABASE_URL) {
@@ -22,30 +32,41 @@ if (DATABASE_URL) {
       console.log('DB ready');
     } catch (e) {
       console.error('DB init error:', e.message);
-      pool = null; // fall back to memory if DB init fails
+      pool = null; 
     }
   })();
 }
+
 function sslOption(cs) {
-  // Some hosted Postgres providers require SSL
   return /amazonaws|render|railway|supabase|azure|gcp|neon|timescale|heroku/i.test(cs)
     ? { rejectUnauthorized: false }
     : undefined;
 }
-// --- Count a page view on homepage load ---
-app.get('/', async (_req, _res, next) => {
+
+// --- Routes ---
+
+// หน้าแรก
+app.get('/', async (req, res) => {
   try {
     if (pool) await pool.query('INSERT INTO pageviews DEFAULT VALUES;');
     else mem.pageViews++;
   } catch {}
-  next();
+  // ส่งไฟล์ index.html จากในโฟลเดอร์ public
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
+// หน้าประวัติ (เพื่อป้องกันหน้าขาว และให้เข้าผ่าน leorio.online/fullhistory ได้เลย)
+app.get('/fullhistory', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'fullhistory.html'));
+});
+
 // --- Demo endpoints ---
-// GET: simple dynamic read
+let mem = { pageViews: 0, writes: 0 };
+
 app.get('/api/time', (_req, res) => {
   res.json({ ok: true, time: new Date().toISOString() });
 });
-// POST: demo write (increments a counter)
+
 app.post('/api/demo-write', async (_req, res) => {
   try {
     if (pool) {
@@ -60,7 +81,7 @@ app.post('/api/demo-write', async (_req, res) => {
     res.status(500).json({ ok: false, error: e.message });
   }
 });
-// Expose simple metrics (handy while filming)
+
 app.get('/api/metrics', async (_req, res) => {
   try {
     if (pool) {
@@ -74,14 +95,5 @@ app.get('/api/metrics', async (_req, res) => {
     res.status(500).json({ ok: false, error: e.message });
   }
 });
-app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-
-
-
-
-
-
-
-
-
+app.listen(PORT, '0.0.0.0', () => console.log(`Listening on ${PORT}`));
