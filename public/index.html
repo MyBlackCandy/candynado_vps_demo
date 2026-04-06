@@ -3,23 +3,24 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>เลโอลีโอซัดกราฟ | Trader & Developer</title>
+  <title>เลโอลีโอซัดกราฟ | เส้นทาง Trader</title>
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #0066ff;
       --accent: #b8860b;
-      --bg: #f4f7f9;
+      --bg: #f8f9fa;
       --card-bg: #ffffff;
       --text: #333;
-      --text-light: #666;
+      --text-muted: #666;
     }
     @media (prefers-color-scheme: dark) {
       :root {
         --bg: #121212;
         --card-bg: #1e1e1e;
         --text: #e0e0e0;
-        --text-light: #aaa;
+        --text-muted: #aaa;
+        --primary: #4da3ff;
       }
     }
 
@@ -28,113 +29,115 @@
       background-color: var(--bg);
       color: var(--text);
       margin: 0;
-      line-height: 1.6;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
     }
 
     .container {
-      max-width: 850px;
+      max-width: 800px;
       margin: auto;
-      padding: 2rem 1rem;
+      padding: 2rem 1.5rem;
     }
 
-    /* Hero Section */
+    /* Header Section */
     .hero {
       text-align: center;
-      padding: 3rem 0;
+      padding: 4rem 0 2rem;
     }
     .hero h1 {
       font-size: 2.5rem;
       margin: 0;
       color: var(--primary);
+      font-weight: 600;
     }
     .hero p {
-      font-size: 1.1rem;
-      color: var(--text-light);
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
     }
 
-    /* Card Style */
-    .card {
+    /* Content Styling */
+    .story-card {
       background: var(--card-bg);
-      padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
       margin-bottom: 2rem;
     }
 
-    h2, h3 {
+    .story-card h2 {
       color: var(--primary);
-      margin-top: 0;
+      border-left: 5px solid var(--primary);
+      padding-left: 15px;
+      margin-bottom: 1.5rem;
+      font-size: 1.6rem;
     }
 
-    /* Story Section */
-    .story-text {
+    p {
+      margin-bottom: 1.5rem;
       font-weight: 300;
-      white-space: pre-line; /* รักษาการเว้นบรรทัดจากเนื้อหาเดิม */
+      text-align: justify;
     }
-    .highlight-box {
+
+    .highlight-quote {
+      background: rgba(184, 134, 11, 0.1);
       border-left: 4px solid var(--accent);
-      padding-left: 1.5rem;
-      margin: 1.5rem 0;
+      padding: 1.5rem;
+      margin: 2rem 0;
       font-style: italic;
       color: var(--accent);
+      border-radius: 0 10px 10px 0;
+      font-weight: 400;
     }
 
-    /* System Demo Section */
-    .demo-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-    @media (max-width: 600px) { .demo-grid { grid-template-columns: 1fr; } }
-
-    .btn-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    button {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 0.7rem 1.2rem;
-      border-radius: 8px;
-      font-family: inherit;
+    .important-text {
+      color: var(--primary);
       font-weight: 500;
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
-    button:hover { opacity: 0.9; }
-
-    pre {
-      background: rgba(0,0,0,0.05);
-      padding: 1rem;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      overflow-x: auto;
     }
 
-    .ok { color: #2e7d32; font-weight: 500; }
-    .err { color: #d32f2f; }
+    /* Broker Section */
+    .broker-box {
+      text-align: center;
+      background: linear-gradient(135deg, var(--primary), #003d99);
+      color: white;
+      padding: 3rem 2rem;
+      border-radius: 20px;
+      margin-top: 3rem;
+    }
+    .broker-box h3 {
+      margin-top: 0;
+      font-size: 1.5rem;
+    }
+    .broker-btn {
+      display: inline-block;
+      background: #ffffff;
+      color: #003d99;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 1.5rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .broker-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      background: #f0f0f0;
+    }
 
     footer {
       text-align: center;
-      padding: 2rem;
+      padding: 3rem 0;
+      color: var(--text-muted);
       font-size: 0.9rem;
-      color: var(--text-light);
+      border-top: 1px solid rgba(0,0,0,0.1);
     }
 
-    .broker-link {
-      display: block;
-      text-align: center;
-      background: var(--accent);
-      color: white;
-      padding: 1rem;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 600;
-      margin-top: 2rem;
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2rem; }
+      .story-card { padding: 1.5rem; }
+      .broker-box { padding: 2rem 1rem; }
     }
   </style>
   <script defer src="https://analytic.candynado.cloud/script.js" data-website-id="bfde69e6-6efa-4128-81ed-37f8e3ef6032"></script>
@@ -142,106 +145,53 @@
 <body>
 
 <div class="container">
-  <!-- ส่วนหัว -->
   <header class="hero">
     <h1>เลโอลีโอซัดกราฟ</h1>
-    <p>Trader & Developer (เกิดปี พ.ศ. 2548)</p>
+    <p>เส้นทางแห่งการต่อสู้และความเชื่อมั่นในกราฟ</p>
   </header>
 
-  <!-- ส่วนเนื้อหาประวัติ -->
-  <section class="card">
-    <h2>เส้นทางของผม</h2>
-    <div class="story-text">
-      เริ่มต้นจากเด็ก ป.6 ที่สนใจกราฟหุ้นเพราะความ "ขี้เกียจ" แต่อยากมีรายได้ จนเข้าสู่โลกของ Binary Option ในวัย 14 ปี และเผชิญกับความล้มเหลวครั้งแล้วครั้งเล่า
-
-      ในวัย 16 ปี ผมตัดสินใจลาออกจากโรงเรียนเพื่อเดินตามความฝัน ท่ามกลางเสียงคัดค้านว่าเป็นเพียงการพนัน จนกระทั่งปี 2023 ผมได้รู้จักกับ <strong>Forex</strong> และนั่นคือจุดเปลี่ยนที่แท้จริง
-    </div>
+  <article class="story-card">
+    <h2>จุดเริ่มต้นของความฝัน</h2>
+    <p>สวัสดีครับ ผมเลโอลีโอซัดกราฟ ผมเกิดปี พ.ศ. 2548 ย้อนไปตอนที่ผมอยู่ป.6 หรือตอนอายุ 12 ผมได้รู้จักกับคำว่า "เทรด" ณ ตอนนั้นผมมองว่าเป็นการเทรดหุ้น หรือเล่นหุ้นนั่นแหละ ด้วยความเป็นคนขี้เกียจ ผมตั้งเป้าหมายไว้เลยว่าอยากเป็นนักธุรกิจหุ้นที่ทำงานไม่เหนื่อย แค่นั่งดูกราฟไปวันๆ</p>
     
-    <div class="highlight-box">
-      "ผมเคยผ่านจุดที่ก๋วยเตี๋ยวถ้วยเดียวต้องกินกัน 3 คนกับตายาย... วันนี้ผมพิสูจน์ให้เห็นแล้วว่าไม่มีอะไรในโลกที่เป็นไปไม่ได้"
+    <p>พอขึ้น ม.2 ผมเริ่มค้นหาจริงจังจนไปเจอการเทรด <span class="important-text">Binary Option</span> แต่ความฝันก็เกือบดับลงเมื่อรู้ว่าต้องอายุ 18 ปีบริบูรณ์ถึงจะสมัครได้ ผมจึงตัดสินใจใช้ชื่อคุณพ่อสมัครและนำเงินเก็บจากการไปโรงเรียน 1,000 บาทมาฝากเทรดครั้งแรกโดยไม่มีความรู้เลย ผลสุดท้ายคือพอร์ตแตกภายในเวลาไม่นาน</p>
+
+    <p>ในช่วง ม.3 ถึง ม.4 ผมยังคงเทรดบ้างเสียบ้างสลับกันไป โดยหาเงินทุนจากการหาเงินออนไลน์ เช่น การขายไอดีเกม จนถึงช่วงโควิด-19 ผมเริ่มเบื่อกับการเรียนและตัดสินใจลาออกท่ามกลางคำคัดค้านจากแม่ที่มองว่ามันคือการพนัน แต่ผมเลือกที่จะพิสูจน์ตัวเอง</p>
+
+    <div class="highlight-quote">
+      "ผมหาเงินออนไลน์อย่างเดียว นอนอยู่บ้านปีกว่าๆ จนเข้าสู่ปี 2023 จุดเริ่มต้นที่แท้จริงกำลังจะเริ่มขึ้น..."
     </div>
 
-    <div class="story-text">
-      จากพอร์ตที่เคยติดลบ ผมใช้ความพยายามศึกษาเทคนิคจากยูทูปต่างชาติจนสามารถทำกำไร ปลดหนี้ 5 แสนบาทให้คุณแม่ และดูแลครอบครัวให้มีความสุขได้ในปัจจุบัน
+    <h2>ก้าวเข้าสู่โลก Forex</h2>
+    <p>วันที่ 3 กุมภาพันธ์ 2566 ผมได้รู้จักคำว่า <span class="important-text">"เทรด Forex"</span> ผมเริ่มจากโบนัสเทรดฟรี $50 และในวันแรกที่ลองเทรด ผมสามารถทำกำไรได้ $40 (ประมาณ 2,000 บาท) จากจังหวะข่าวแรงในคู่เงิน EURUSD นั่นคือจุดที่ทำให้ผมติดใจและเลิกเทรด Binary Option อย่างถาวร</p>
+    
+    <p>ผมเริ่มศึกษาเทคนิคอย่างจริงจังจากยูทูป ทั้งช่องไทยและต่างชาติ แม้ฟังไม่ออกแต่ผมพยายามจับใจความจากภาพวาด ผมฝึกฝนจนเริ่มมีกำไรและเริ่มช่วยแม่จ่ายดอกเบี้ยหนี้สินของครอบครัว</p>
+
+    <div class="highlight-quote">
+      "พ่อผมเคยร้องไห้และผิดหวังที่ผมไม่เรียนต่อ แต่ผมบอกพ่อว่าผมจะทำให้ดูว่ามันทำได้จริงๆ"
     </div>
 
-    <a href="ใส่ลิ้งค์โบรกเกอร์ของคุณที่นี่" class="broker-link" target="_blank">
-      📈 เริ่มต้นเทรดกับ IUX Market
+    <h2>บทพิสูจน์ความสำเร็จ</h2>
+    <p>ครอบครัวผมมีหนี้สินเพิ่มขึ้นเป็น 5 แสนบาทจากการลงทุนที่ผิดพลาด ผมใช้แรงกดดันนั้นเป็นพลัง จนกระทั่งเดือนธันวาคมในปีที่เริ่มเทรดจริงจัง ผมมีเงินเก็บในพอร์ตเกือบ 5 แสนบาท และในที่สุดผมก็สามารถ <span class="important-text">"ปิดหนี้ทั้งหมดให้แม่ได้สำเร็จ"</span></p>
+
+    <p>ปัจจุบันชีวิตผมเปลี่ยนไปมาก ผมสามารถไปไหนก็ได้ กินอะไรก็ได้โดยไม่ต้องกังวลเรื่องราคา และที่สำคัญที่สุด คือครอบครัวของผมไม่ต้องลำบากเหมือนเมื่อก่อนที่เคยต้องแบ่งก๋วยเตี๋ยวถ้วยเดียวทานกัน 3 คนกับตายาย</p>
+
+    <p>ไม่มีอะไรในโลกนี้ที่เป็นไปไม่ได้ครับ ผมเริ่มจากศูนย์แต่มีโทรศัพท์เพียงเครื่องเดียวที่หาความรู้ได้ <span class="important-text">จาก "เลโอลีโอซัดกราฟ" ทำให้เห็นแล้ว</span></p>
+  </article>
+
+  <section class="broker-box">
+    <h3>โบรกเกอร์ที่ผมใช้และแนะนำ</h3>
+    <p>สำหรับการเทรด Forex ในปัจจุบัน ผมเลือกใช้บริการของ <strong>IUX Market</strong></p>
+    <a href="ใส่ลิงก์ของคุณตรงนี้" class="broker-btn" target="_blank">
+      สมัครสมาชิก IUX Market ที่นี่
     </a>
   </section>
 
-  <!-- ส่วนระบบเดิม (Demo System) -->
-  <section class="demo-grid">
-    <div class="card">
-      <h3>Fetch Data (GET)</h3>
-      <div class="btn-row">
-        <button id="getBtn">ดึงข้อมูลเวลา</button>
-        <span id="getMsg"></span>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Save Event (POST)</h3>
-      <div class="btn-row">
-        <button id="writeBtn">บันทึกข้อมูล</button>
-        <span id="writeMsg"></span>
-      </div>
-    </div>
-  </section>
-
-  <section class="card">
-    <h3>Live Metrics (Backend)</h3>
-    <pre id="metricsBox">กำลังโหลดข้อมูลระบบ…</pre>
-  </section>
-
   <footer>
-    <p>&copy; 2026 Leoleo Zudgraph. ทั้งหมดนี้สร้างขึ้นเพื่อพิสูจน์ว่า 'ความพยายามไม่เคยทรยศใคร'</p>
+    <p>&copy; 2026 Leoleo Zudgraph. All Rights Reserved.</p>
+    <p style="font-size: 0.7rem; margin-top: 10px; opacity: 0.5;">*การลงทุนมีความเสี่ยง ผู้ลงทุนควรศึกษาข้อมูลก่อนตัดสินใจ</p>
   </footer>
 </div>
-
-<script>
-const $ = (id)=>document.getElementById(id);
-async function getJSON(url, opts){ 
-  const r = await fetch(url,opts); 
-  if(!r.ok) throw new Error('HTTP '+r.status); 
-  return r.json(); 
-}
-
-$('getBtn').onclick = async () => {
-  try {
-    const data = await getJSON('/api/time');
-    $('getMsg').textContent = 'เวลาเซิร์ฟเวอร์: ' + data.time;
-    $('getMsg').className = 'ok';
-    window.umami?.track('fetch_data');
-  } catch {
-    $('getMsg').textContent = 'เกิดข้อผิดพลาด';
-    $('getMsg').className = 'err';
-  }
-};
-
-$('writeBtn').onclick = async () => {
-  try {
-    const data = await getJSON('/api/demo-write', { method:'POST' });
-    $('writeMsg').textContent = 'บันทึกแล้ว: ' + data.total;
-    $('writeMsg').className = 'ok';
-    window.umami?.track('write_data');
-    loadMetrics();
-  } catch {
-    $('writeMsg').textContent = 'เกิดข้อผิดพลาด';
-    $('writeMsg').className = 'err';
-  }
-};
-
-async function loadMetrics(){
-  try {
-    const m = await getJSON('/api/metrics');
-    $('metricsBox').textContent = JSON.stringify(m, null, 2);
-  } catch {
-    $('metricsBox').textContent = 'ไม่สามารถโหลด Metrics ได้';
-  }
-}
-loadMetrics();
-</script>
 
 </body>
 </html>
